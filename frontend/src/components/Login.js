@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { authAPI } from '../services/Api'; 
 import './Login.css';
 
 function Login() {
@@ -20,43 +21,27 @@ function Login() {
     setError('');
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError('');
 
-    const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
-    const payload = isLogin
-      ? { email: formData.email, password: formData.password }
-      : formData;
+  try {
+    const data = isLogin
+      ? await authAPI.login(formData.email, formData.password)
+      : await authAPI.register(formData);
 
-    try {
-      const response = await fetch(`http://localhost:5000${endpoint}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+    // Save token and user, redirect to dashboard
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+    window.location.href = '#/dashboard'; // Use hash navigation
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Something went wrong');
-      }
-
-      // ✅ Save token and user, redirect to dashboard
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      window.location.href = '/dashboard';
-
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <div className="login-container">
       <div className="login-card">

@@ -14,7 +14,19 @@ def create_app():
     db.init_app(app)
     bcrypt.init_app(app)
     jwt = JWTManager(app)
-    CORS(app)
+    
+    # Fix CORS - Allow GitHub Pages
+    CORS(app, resources={
+        r"/api/*": {
+            "origins": [
+                "https://bhalu-git169.github.io",
+                "http://localhost:3000"
+            ],
+            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"],
+            "supports_credentials": True
+        }
+    })
     
     # Register blueprints
     app.register_blueprint(auth_bp)
@@ -39,5 +51,7 @@ def create_app():
     return app
 
 if __name__ == '__main__':
+    import os
     app = create_app()
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port, debug=False)
