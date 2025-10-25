@@ -4,62 +4,224 @@
   box-sizing: border-box;
 }
 
+/* ✅ FIXED: Main container with flex layout for sidebar + content */
 .dashboard-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', sans-serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex; /* ⬅️ THIS IS KEY */
   min-height: 100vh;
+  background-color: #f5f5f5;
 }
 
-/* Header */
-.dashboard-header {
+/* ✅ Sidebar (left side, purple gradient) */
+.sidebar {
+  width: 300px;
+  min-width: 300px;
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px 20px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Main content (right side, takes remaining space) */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Sidebar Header */
+.sidebar-header {
+  display: flex;
   align-items: center;
-  padding: 20px 0;
-  border-bottom: 2px solid #e0e0e0;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
   margin-bottom: 20px;
 }
 
-.app-title {
-  font-size: 2.5rem;
-  font-weight: 700;
+.sidebar-icon {
+  font-size: 2rem;
+}
+
+/* User Profile Section */
+.user-profile {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.user-profile:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-avatar span {
+  font-size: 24px;
+}
+
+.user-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.user-info p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Navigation */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-item {
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.25);
+  font-weight: 600;
+}
+
+/* Progress Cards */
+.progress-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.progress-header strong {
+  font-size: 1.2rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 25px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  transition: width 0.5s ease;
+}
+
+.progress-message {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Logout Button */
+.logout-btn {
+  margin-top: auto;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 14px;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Main Content Styles */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.main-header h1 {
+  font-size: 2rem;
   color: #1a1a2e;
-  letter-spacing: -1px;
 }
 
 .profile-icon {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #667eea;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: all 0.3s;
 }
 
 .profile-icon:hover {
   transform: scale(1.1);
 }
 
-/* Greeting */
-.greeting {
+.profile-placeholder {
+  font-size: 24px;
+}
+
+/* Welcome Message */
+.welcome-message {
   margin-bottom: 25px;
 }
 
-.greeting p {
+.welcome-message h2 {
   font-size: 1.5rem;
   color: #333;
-}
-
-.username {
-  font-weight: 700;
-  color: #667eea;
 }
 
 /* Add Habit Section */
@@ -69,7 +231,7 @@
   margin-bottom: 30px;
 }
 
-.habit-input {
+.add-habit-section input {
   flex: 1;
   padding: 15px 20px;
   border: 2px solid #e0e0e0;
@@ -77,10 +239,9 @@
   font-size: 1rem;
   outline: none;
   transition: all 0.3s ease;
-  cursor: pointer;
 }
 
-.habit-input:focus {
+.add-habit-section input:focus {
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
@@ -102,7 +263,7 @@
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
-/* Progress Bar */
+/* Progress Section */
 .progress-section {
   background: white;
   padding: 20px;
@@ -111,42 +272,23 @@
   margin-bottom: 25px;
 }
 
-.progress-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  font-weight: 600;
-  color: #333;
-}
-
-.progress-percentage {
-  color: #667eea;
-}
-
-.progress-bar {
+.progress-bar-main {
   width: 100%;
   height: 30px;
   background: #e0e0e0;
   border-radius: 15px;
   overflow: hidden;
-  position: relative;
 }
 
-.progress-fill {
+.progress-fill-main {
   height: 100%;
   background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
   border-radius: 15px;
   transition: width 0.5s ease;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 10px;
-  color: white;
-  font-weight: 600;
 }
 
-/* Motivational Quote */
-.motivation-quote {
+/* Motivational Message */
+.motivational-message {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   padding: 20px;
   border-radius: 15px;
@@ -154,12 +296,13 @@
   box-shadow: 0 5px 15px rgba(245, 87, 108, 0.3);
 }
 
-.motivation-quote p {
+.motivational-message p {
   color: white;
   font-size: 1.1rem;
   font-style: italic;
   text-align: center;
   font-weight: 500;
+  margin: 0;
 }
 
 /* Habits Section */
@@ -168,7 +311,6 @@
   padding: 25px;
   border-radius: 15px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  margin-bottom: 30px;
 }
 
 .habits-section h2 {
@@ -184,6 +326,9 @@
 }
 
 .habit-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
   padding: 15px;
   background: #f8f9fa;
   border-radius: 12px;
@@ -196,54 +341,9 @@
 }
 
 .habit-checkbox {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-  padding-left: 35px;
-}
-
-.habit-checkbox input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.checkmark {
-  position: absolute;
-  left: 0;
-  height: 24px;
   width: 24px;
-  background-color: white;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-}
-
-.habit-checkbox:hover .checkmark {
-  border-color: #667eea;
-}
-
-.habit-checkbox input:checked ~ .checkmark {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: #667eea;
-}
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-  left: 7px;
-  top: 3px;
-  width: 6px;
-  height: 11px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-.habit-checkbox input:checked ~ .checkmark:after {
-  display: block;
+  height: 24px;
+  cursor: pointer;
 }
 
 .habit-name {
@@ -257,60 +357,23 @@
   color: #999;
 }
 
-/* Weekly Statistics */
-.weekly-stats-section {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    min-width: 100%;
+  }
+  
+  .main-content {
+    padding: 20px;
+  }
 }
 
-.weekly-stats-section h2 {
-  margin-bottom: 20px;
-  color: #1a1a2e;
-  font-size: 1.5rem;
-}
-
-.weekly-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.day-stat {
-  display: grid;
-  grid-template-columns: 50px 1fr 40px;
-  align-items: center;
-  gap: 15px;
-}
-
-.day-name {
-  font-weight: 600;
-  color: #555;
-  font-size: 0.95rem;
-}
-
-.day-bar-container {
-  height: 30px;
-  background: #e9ecef;
-  border-radius: 15px;
-  overflow: hidden;
-}
-
-.day-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-  border-radius: 15px;
-  transition: width 0.5s ease;
-}
-
-.day-count {
-  font-weight: 700;
-  color: #667eea;
-  text-align: right;
-}
-
-/* Modal */
+/* ✅ FIXED Modal - Perfectly Centered */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -333,6 +396,8 @@
   width: 100%;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   animation: slideUp 0.3s ease;
+  position: relative; /* ✅ Added this */
+  margin: auto; /* ✅ Added this */
 }
 
 @keyframes slideUp {
@@ -457,19 +522,4 @@
 .submit-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .app-title {
-    font-size: 2rem;
-  }
-  
-  .category-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .add-habit-section {
-    flex-direction: column;
-  }
 }
