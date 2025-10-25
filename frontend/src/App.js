@@ -1,40 +1,41 @@
-import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Dashboard from './components/dashboard';
 import Statistics from './components/Statistics';
 import './App.css';
 
-function App() {
-  const isLoggedIn = () => {
-    return localStorage.getItem('token') && localStorage.getItem('user');
-  };
+function PrivateRoute({ children }) {
+  const token = localStorage.getItem('token');
+  const user = localStorage.getItem('user');
+  return token && user ? children : <Navigate to="/" replace />;
+}
 
+function App() {
   return (
-    <Router>
+    <HashRouter>
       <Routes>
-        <Route 
-          path="/" 
-          element={isLoggedIn() ? <Navigate to="/dashboard" replace /> : <Login />} 
-        />
-        
-        <Route 
-          path="/login" 
-          element={isLoggedIn() ? <Navigate to="/dashboard" replace /> : <Login />} 
-        />
-        
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route 
           path="/dashboard" 
-          element={isLoggedIn() ? <Dashboard /> : <Navigate to="/" replace />} 
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          } 
         />
-        
         <Route 
           path="/statistics" 
-          element={isLoggedIn() ? <Statistics /> : <Navigate to="/" replace />} 
+          element={
+            <PrivateRoute>
+              <Statistics />
+            </PrivateRoute>
+          } 
         />
-        
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
 
