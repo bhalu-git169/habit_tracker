@@ -13,7 +13,7 @@ function ProtectedRoute({ children }) {
 
 function App() {
   return (
-    <Router>
+    <Router basename="/habit_tracker">  
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
